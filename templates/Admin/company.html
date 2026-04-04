@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %} Student Dashboard {% endblock %}
+{% block title %} Manage Companies {% endblock %}
 
     {%block navbar %} 
      <div class="sdash">
@@ -13,6 +13,73 @@
      {% endblock %}
      
 {% block content %}
+
+
+<div class="a">
+   
+   <div class="sq">
+      <h2>Manage Company</h2>
+   </div>
+
+   <div class="scontainer">
+      <div class="ssearch">
+      <form method="GET" action="/students">
+         <input type="text" name="search" placeholder="Search by Company Name, Email">
+         <button type="submit">Search</button>
+      </form>
+      </div>
+   </div>
+<hr>
+   <br><br>
+   <div class="rcontainer">
+      <div class="sresult" >
+      <table class="srresult">
+         <tr>
+            <th>ID</th>
+            <th>Company Name</th>
+            <th>Email</th>
+            <th>Hr Contact</th>
+            <th>Website</th>
+            <th>Status</th>
+            <th>Action</th>
+         </tr>
+         
+         
+            {% for s in students %}
+               <tr>
+                  <td>{{ s.id }} </td>
+                  <td>{{ s.name }}</td>
+                  <td>{{ s.email }}</td>
+                  <td>{{ s.contact }}</td>
+                  <td>{{ s.website }}</td>
+                  <td>{{ s.status }}</td>
+                  <td>{{ s.Action }}</td>
+                  
+               </tr>
+            {% endfor %}
+         
+      </table>
+   </div>
+
+
+
+
+   </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

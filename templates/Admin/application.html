@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %} Student Dashboard {% endblock %}
+{% block title %} Manage Applications {% endblock %}
 
     {%block navbar %} 
      <div class="sdash">
@@ -13,6 +13,66 @@
      {% endblock %}
      
 {% block content %}
+
+
+<div class="a">
+   
+   <div class="sq">
+      <h2>All Applications</h2>
+   </div>
+
+
+<hr>
+   <br><br>
+   <div class="rcontainer">
+      <div class="sresult" >
+      <table class="srresult">
+         <tr>
+            <th>ID</th>
+            <th>Student</th>
+            <th>Email</th>
+            <th>Company</th>
+            <th>Job Title</th>
+            <th>Status</th>
+         </tr>
+         
+         
+            {% for s in students %}
+               <tr>
+                  <td>{{ s.id }} </td>
+                  <td>{{ s.name }}</td>
+                  <td>{{ s.email }}</td>
+                  <td>{{ s.phone }}</td>
+                  <td>{{ s.branch }}</td>
+                  <td>{{ s.cgpa }}</td>
+                  <td>{{ s.year }}</td>
+                  <td>{{ s.status }}</td>
+                  
+               </tr>
+            {% endfor %}
+         
+      </table>
+   </div>
+
+
+
+
+   </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
