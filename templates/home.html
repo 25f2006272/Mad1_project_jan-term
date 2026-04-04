@@ -1,6 +1,23 @@
 {% extends "base.html" %}
 {% block title %} Home page {% endblock %}
+
+
+{%block navbar %}
+ <div class="homenav">
+    <div class="menu1">
+        <a href="Placement.html">Placement</a>
+        <a href=".html">About</a>
+    </div>
+
+    <div class="menu2">
+        <a href="{{url_for('login')}}"><button class="login" >Log in</button></a>
+        <a href="{{url_for('signup')}}"><button class="signup">sign up</button></a>
+    </div>
+ </div>
+{% endblock %}
+
 {% block content %}
+
 <div class="container1 text-right">
     <h3>Welcome to placement portal </h3>
 

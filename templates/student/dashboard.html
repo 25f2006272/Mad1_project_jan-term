@@ -3,17 +3,69 @@
 
 
     {%block navbar %} 
+     <div class="sdash">
         <a href="{{url_for('student_dashboard')}}"> Dasboard</a>
         <a href="{{url_for('internship')}}"> Internship</a>
         <a href="{{url_for('student_application')}}"> My Application</a>
         <a href="{{url_for('student_profile')}}"> Profile</a>
         <a href="{{url_for('login')}}"> Logout</a>
+     </div>
      {% endblock %}
      
 {% block content %}
 
+<h2 class="sheading">Student Dashboard </h2>
+
+<div class="srectangle">
+    <div class="rectangle"><h3>Available drives</h3></div>
+    <div class="rectangle"><h3>Applied</h3></div>
+    <div class="rectangle"><h3>Selected</h3></div>
+</div>
+
+<div class="sprofile">
+    <nav class="snav">
+        <h2>My Profile</h2>
+        <a href="profile.html"><button type="button" class="btnbtn">Edit Profile</button></a>
+    </nav>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="sright">
+                <p><b>Name:</b> </p>
+                <p><b>Email:</b></p>
+                <p><b>Phone:</b></p>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="sleft">
+                <p><b>Branch:</b> </p>
+                <p><b>Cgpa:</b></p>
+                <p><b>Graduation Year:</b></p>
+            </div>
+        </div>
+    </div>
+
+</div>
 
 
-<h2>Student Dashboard </h2>
+<div class="sprofile">
+    <nav class="snav">
+        <h2>Approved Drives</h2>
+    
+    </nav>
 
+ 
+<div class="txt"><p class="text-center">No approved drives available at the moment</p></div>
+
+</div>
+
+<div class="sprofile">
+    <nav class="snav">
+        <h2>Your Recent Application</h2>
+    
+    </nav>
+
+    <div class="txt"><p class="text-center">You haven't to any drives yet</p></div>
+</div>
 {% endblock %}

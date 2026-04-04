@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %} student profile {% endblock %}
+
+{%block navbar %} 
+
+     <div class="sdash">
+        <a href="{{url_for('company_dashboard')}}"> Dasboard</a>
+        <a href="{{url_for('company_profile')}}"> Profile</a>
+        <a href="{{url_for('create_internship')}}"> Internship</a>
+        <a href="{{url_for('login')}}"> Logout</a>
+     </div>
+{% endblock %}
+
+{% block content %}
+
+<h2 class="sheading">Company Dashboard </h2>
+
+<div class="srectangle">
+    <div class="rectangle"><h3>Total Drives</h3></div>
+    <div class="rectangle"><h3>Total Application</h3></div>
+    <div class="rectangle"><h3>Approved Status</h3> <br> <p class="txt"><b>Approved</b></p></div>
+</div>
+
+<div class="sprofile">
+    <nav class="snav">
+        <h2>My Profile</h2>
+        <a href="profile.html"><button type="button" class="btnbtn">Edit Profile</button></a>
+    </nav>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="sright">
+                <p><b>Company Name:</b> </p>
+                <p><b>Email:</b></p>
+                <p><b>Hr Contact:</b></p>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="sleft">
+                <p><b>Website:</b> </p>
+                <p><b>Status:</b> Approved</p>
+                 
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="sprofile">
+    <nav class="snav">
+        <h2>My Placement Drives</h2>
+        
+    </nav>
+
+ 
+<div class="txt"><p class="text-center">No Placement drives created yet. <a href="{{url_for('create_internship')}}">Create your first drive </a></p></div>
+
+</div>
+
+{% endblock %}

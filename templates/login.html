@@ -4,14 +4,14 @@
 {% block content %}
 
 <div class="login1">
-    <form method="post" action="login">
+    <form method="post" action="/login">
         <div class="mb-4">
             <label for="exampleFormControlInput1" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" >
+            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" name="email" >
         </div>
         <div class="mb-4">
             <label for="exampleFormControlInput1" class="form-label">password</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="password">
+            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="password" name="password">
         </div>
         <input type="button" value="login" class="login-btn">
     </form>

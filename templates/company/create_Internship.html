@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %} student profile {% endblock %}
+
+
+{% block content %}
+
+<div class="content-fluid">
+    <div><h2>My Profile</h2></div>
+   
+<div class="cprofile">
+    <form action="">
+        <div class="cpprofile">
+            <div class="mb-3">
+                <label class="form-label"> Job Title</label>
+                <input type="text" class="form-control" name="username" placeholder=" Enter Job Title">
+            </div>
+
+
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Job Description</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Eligibility Criteria</label>
+                <input type="text" class="form-control" name="username" >
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Salary Package</label>
+                <input type="text" class="form-control" name="username" placeholder=" e.g., 10-60LPA">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Location</label>
+                <input type="text" class="form-control" name="username" >
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Application Deadline</label>
+                <input type="date" class="form-control" name="username" >
+            </div>
+
+            <button type="submit" class="upbtn">Create Drive</button>
+            <a href="{{url_for('company_dashboard')}}"><button type="button" class="btn btn-secondary">Cancel</button></a>
+        </div>
+    </form>
+</div>
+
+
+</div>
+
+
+{% endblock %}

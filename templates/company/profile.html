@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %} student profile {% endblock %}
+
+
+{% block content %}
+
+<div class="content-fluid">
+
+    <div><h2>Company Profile</h2></div>
+   
+
+    <div class="cprofile" >
+    
+        <form method="post">
+            <div class="cpprofile">
+                <div class="mb-3">
+                <label class="form-label"> Company Name</label>
+                <input type="text" class="form-control" name="username" placeholder="Enter Company name">
+                </div>
+
+                <div class="mb-3">
+                <label class="form-label"> Hr Contact</label>
+                <input type="email" class="form-control" name="username" placeholder="Enter contact detailes ">
+                </div>
+
+                <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Company Description</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+
+                <div class="mb-3">
+                <label class="form-label">Website</label>
+                <input type="text" class="form-control" name="username" placeholder="Enter Company Address">
+                </div>
+
+                <button type="submit" class="upbtn">Create Drive</button>
+                <a href="{{url_for('company_dashboard')}}"><button type="button" class="btn btn-secondary">Cancel</button></a>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

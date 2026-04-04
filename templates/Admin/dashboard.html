@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %} Student Dashboard {% endblock %}
+
+    {%block navbar %} 
+     <div class="sdash">
+        <a href="{{url_for('admin_dashboard')}}"> Dasboard</a>
+        <a href="{{url_for('admin_student')}}"> Students</a>
+        <a href="{{url_for('admin_company')}}"> Companies</a>
+        <a href="{{url_for('admin_internship')}}"> Job/Internship</a>
+        <a href="{{url_for('admin_application')}}"> Applications</a>
+        <a href="{{url_for('login')}}"> Logout</a>
+     </div>
+     {% endblock %}
+     
+{% block content %}
+
+<h2 class="sheading">Student Dashboard </h2>
+
+<div class="srectangle">
+    <div class="rectangle"><h3>Total Students</h3></div>
+    <div class="rectangle"><h3>Total Companies</h3></div>
+    <div class="rectangle"><h3>Total Drives</h3></div>
+    <div class="rectangle"><h3>Application</h3></div>
+</div>
+
+<div class="row">
+
+<div class="adetail">
+   <div class="col-md-6">
+      <h2>Pending Approvals</h2>
+      <div class="aright">
+         <div><p>Pending Company</p><p>Pending Drive</p></div> 
+         
+      </div>
+      <div>
+         <a href="{{url_for('admin_company')}}"><button type="button" class="btn btn-secondary">Manage Companies</button></a>
+         <a href="{{url_for('admin_internship')}}"><button type="button" class="btn btn-secondary">Manage Drives</button></a>
+      </div>
+   </div>
+</div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %} student profile {% endblock %}
+
+{% block content %}
+<div class="content-fluid">
+    <div><h2>My Profile</h2></div>
+   
+<div class="studentprofile">
+ <form action="student_profile" method="post">
+        <div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Full Name</label>
+                <input type="name" class="form-control" id="exampleFormControlInput1" placeholder="Name">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Phone Number</label>
+                <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Phone Number">
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Branch</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Branch">
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Graduation year</label>
+                <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="e.g., 2026">
+            </div>
+            
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Skills</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="e.g., Python, Java, Machjine Learning, AI">
+            </div>        
+
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Upload Resume</label>
+                <input type="file" class="form-control" id="exampleFormControlInput1" placeholder="Upload Resume">
+            </div>
+
+            
+            <button class="upbtn" type="submit">Update Profile</button>
+
+            <a href="{{url_for('student_dashboard')}}"><button type="button" class="btn btn-secondary">Cancel</button></a>
+            
+
+
+
+        </div>
+    </form>
+</div>
+
+</div>
+{% endblock %}

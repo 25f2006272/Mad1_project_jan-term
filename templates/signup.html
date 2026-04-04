@@ -4,10 +4,10 @@
 {% block content %}
 
 <div class="login1">
-    <form method="post" action="login">
+    <form method="post" action="/signup">
         <div class="mb-4">
             <label for="exampleFormControlInput1" class="form-label">Full Name</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Name" >
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Name" >
         </div>
         <div class="mb-4">
             <label for="exampleFormControlInput1" class="form-label">Email</label>
@@ -16,17 +16,17 @@
     
         <div class="mb-4">
             <label for="exampleFormControlInput1" class="form-label">Phone No.</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="phone Number">
+            <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="phone Number">
         </div>
                 <div class="mb-4">
             <label for="exampleFormControlInput1" class="form-label"> password</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="password">
+            <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="password">
         </div>
         <div class="mb-4">
             <label for="exampleFormControlInput1" class="form-label">Confirm Password</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="password">
+            <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="password">
         </div>
-        <input type="button" value="signup" class="signup-btn">
+       <div > <input type="submit" value="signup" class="signup-btn"> </div> 
     </form>
      <hr>
     <p class="text-center mb-0">
