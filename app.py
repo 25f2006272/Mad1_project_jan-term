@@ -10,6 +10,29 @@ app.secret_key="Secretxyz21"
 db.init_app(app) 
 with app.app_context():
     db.create_all()
+    if not roles.query.filter_by(role="student").first():
+        db.session.add(roles(role="student"))
+
+    if not roles.query.filter_by(role="company").first():
+        db.session.add(roles(role="company"))
+
+    if not roles.query.filter_by(role="admin").first():
+        db.session.add(roles(role="admin"))
+
+
+    admin_user= admin.query.filter_by(email='admin@gmail.com').first()
+
+    if not admin_user:
+        admin_user= admin(
+            name="Admin",
+            email="admin1@gmail.com",
+            password="admin12345",
+            role_id=3
+        )
+        db.session.add(admin_user)
+
+
+    db.session.commit()
 
 
 @app.route("/")
@@ -17,31 +40,140 @@ def home():
     return render_template("home.html")
 
 
-# @app.route('/signup', methods=['GET', 'POST'])
-# def register():
-#     if request.method == 'POST':
-#         name = request.form.get('name')
-#         email = request.form.get('email')
-#         password = request.form.get('password')
-#         registered = students.query.filter_by(name=name).first()
-#         if not registered:
-#             name= students(name=name, email=email, password=password)
-#             db.session.add(name)
-#             db.session.commit()
-#         return redirect('/login')
-#     return render_template('signup.html')
+
+@app.route("/login/<role>", methods=["GET", "POST"])
+def login(role):
+    if request.method == "POST":
+        # username = request.form.get("username")
+        # password = request.form.get("password")
+        if role=="student":
+            email=request.form.get('email')
+            password=request.form.get('password')
+
+            user=students.query.filter_by(email=email,password=password).first()
+
+            if user:
+                session['user_id']=user.id
+                session['role']=user.role_id
+               
+                flash("Login succesful")
+                return redirect(url_for("student_dashboard",role=role))
+            elif user is None:
+                flash("Signup first")
+                return redirect(url_for('signup', role=role))
+            else:
+                flash("Invalid email or password")
+                return render_template("login.html",role=role)
+            
+        elif role=="company":
+
+            email=request.form.get('email')
+            password=request.form.get('password')
+
+            user=company.query.filter_by(email=email,password=password).first()
+
+            if user:
+                session['user_id']=user.id
+                session['role']=user.role_id
+               
+                flash("Login succesful")
+                return redirect(url_for("company_dashboard",role=role))
+            elif user is None:
+                flash("Signup first")
+                return redirect(url_for('signup', role=role))
+            else:
+                flash("Invalid email or password")
+                return render_template("login.html",role=role)
+            
+            return render_template("company/dashboard.html",role=role)
+        elif role=="admin":
+            
+
+
+            email=request.form.get('email')
+            password=request.form.get('password')
+
+ 
+            user=admin.query.filter_by(email="admin1@gmail.com").first()
+            if user:
+                if user.password==password and user.email==email:
+                    session['user_id']=user.id
+                    session['role']=user.role_id
+                    flash('Welcome to the admin dashboard')
+                    return render_template("admin/dashboard.html",role=role)
+                else :
+                    flash('Invalid email or password')
+
+
+    return render_template("login.html", role=role)
 
 
 
 
 
-# @app.route("/login")
-# def login():
-#     return render_template("login.html")
+@app.route("/signup/<role>",  methods=["POST","GET"])
+def signup(role):
+    if request.method=="POST":
+        if role=='student':
+            name=request.form.get('name')
+            email=request.form.get('email')
+            password=request.form.get('password')
+            phone=request.form.get('phone')
 
-@app.route("/signup",  methods=["POST","GET"])
-def signup():
-    return render_template("signup.html")
+
+            user=students.query.filter_by(name=name,email=email).first()
+            if user is None:
+                new_student=students(
+                    name=name,
+                    email=email,
+                    password=password,
+                    phone=phone,
+                    role_id=1
+                )
+                db.session.add(new_student)
+                db.session.commit()
+                # flash('Now you can login')
+                return redirect(url_for("login",role=role))
+
+            if user:
+                flash('You have already an account')
+                return redirect(url_for("login",role=role))
+            
+
+
+    #signup for company
+        if role=='company':
+            company_name=request.form.get('name')
+            email=request.form.get('email')
+            password=request.form.get('password')
+            hr_contact=request.form.get('phone')
+            website=request.form.get('website')
+
+
+            user=company.query.filter_by(company_name=company_name,email=email).first()
+            if user is None:
+                new_company=company(
+                    company_name=company_name,
+                    email=email,
+                    password=password,
+                    hr_contact=hr_contact,
+                    role_id=2,
+                    website=website
+                )
+                db.session.add(new_company)
+                db.session.commit()
+                # flash('Now you can login')
+                return redirect(url_for("login",role=role))
+
+            if user:
+                flash('You have already an account')
+                return redirect(url_for("login",role=role))
+        
+
+
+
+
+    return render_template("signup.html",role=role)
 
 @app.route("/student/dashboard")
 def student_dashboard():

@@ -4,15 +4,17 @@
 
     {%block navbar %} 
      <div class="sdash">
-        <a href="{{url_for('student_dashboard')}}"> Dasboard</a>
-        <a href="{{url_for('internship')}}"> Internship</a>
-        <a href="{{url_for('student_application')}}"> My Application</a>
-        <a href="{{url_for('student_profile')}}"> Profile</a>
-        <a href="{{url_for('login')}}"> Logout</a>
+        <a href="{{url_for('student_dashboard',role=role)}}"> Dasboard</a>
+        <a href="{{url_for('internship',role=role)}}"> Internship</a>
+        <a href="{{url_for('student_application',role=role)}}"> My Application</a>
+        <a href="{{url_for('student_profile',role=role)}}"> Profile</a>
+        <a href="{{url_for('home',role=role)}}"> Logout</a>
      </div>
      {% endblock %}
      
 {% block content %}
+
+
 
 <h2 class="sheading">Student Dashboard </h2>
 

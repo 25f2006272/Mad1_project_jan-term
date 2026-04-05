@@ -1,13 +1,13 @@
 {% extends "base.html" %}
-{% block title %} student profile {% endblock %}
+{% block title %} Company profile {% endblock %}
 
 {%block navbar %} 
 
      <div class="sdash">
-        <a href="{{url_for('company_dashboard')}}"> Dasboard</a>
-        <a href="{{url_for('company_profile')}}"> Profile</a>
-        <a href="{{url_for('create_internship')}}"> Internship</a>
-        <a href="{{url_for('login')}}"> Logout</a>
+        <a href="{{url_for('company_dashboard',role=role)}}"> Dasboard</a>
+        <a href="{{url_for('company_profile',role=role)}}"> Profile</a>
+        <a href="{{url_for('create_internship',role=role)}}"> Internship</a>
+        <a href="{{url_for('home',role=role)}}"> Logout</a>
      </div>
 {% endblock %}
 

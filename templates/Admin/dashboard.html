@@ -1,20 +1,20 @@
 {% extends "base.html" %}
-{% block title %} Student Dashboard {% endblock %}
+{% block title %} Admin Dashboard {% endblock %}
 
     {%block navbar %} 
      <div class="sdash">
-        <a href="{{url_for('admin_dashboard')}}"> Dasboard</a>
-        <a href="{{url_for('admin_student')}}"> Students</a>
-        <a href="{{url_for('admin_company')}}"> Companies</a>
-        <a href="{{url_for('admin_internship')}}"> Job/Internship</a>
-        <a href="{{url_for('admin_application')}}"> Applications</a>
-        <a href="{{url_for('login')}}"> Logout</a>
+        <a href="{{url_for('admin_dashboard',role=role)}}"> Dasboard</a>
+        <a href="{{url_for('admin_student',role=role)}}"> Students</a>
+        <a href="{{url_for('admin_company',role=role)}}"> Companies</a>
+        <a href="{{url_for('admin_internship',role=role)}}"> Job/Internship</a>
+        <a href="{{url_for('admin_application',role=role)}}"> Applications</a>
+        <a href="{{url_for('home',role=role)}}"> Logout</a>
      </div>
      {% endblock %}
      
 {% block content %}
 
-<h2 class="sheading">Student Dashboard </h2>
+<h2 class="sheading">Admin Dashboard </h2>
 
 <div class="srectangle">
     <div class="rectangle"><h3>Total Students</h3></div>

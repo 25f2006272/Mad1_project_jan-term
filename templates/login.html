@@ -3,23 +3,36 @@
 
 {% block content %}
 
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+    <div class="mflash">
+      <div class="flash">
+        {{ message }}
+      </div>
+    </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
 <div class="login1">
-    <form method="post" action="/login">
+    <form method="POST" action="{{ url_for('login', role=role) }}">
         <div class="mb-4">
-            <label for="exampleFormControlInput1" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" name="email" >
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="email" placeholder="name@example.com" name="email" >
         </div>
         <div class="mb-4">
-            <label for="exampleFormControlInput1" class="form-label">password</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="password" name="password">
+            <label for="password" class="form-label">password</label>
+            <input type="password" class="form-control" id="password" placeholder="password" name="password">
         </div>
-        <input type="button" value="login" class="login-btn">
+        <button type="submit" value="login" class="login-btn">Login</button>
     </form>
      <hr>
-    <p class="text-center mb-0">
-        Don't have an account? <a href="{{url_for('signup')}}">signup</a> 
-    </p>
-    
+    {% if role!="admin" %}
+        <p class="text-center mb-0">
+            Don't have an account? <a href="{{url_for('signup',role=role)}}">signup</a> 
+        </p>
+    {% endif %}
 
 </div>
 

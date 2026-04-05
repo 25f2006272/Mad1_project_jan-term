@@ -11,9 +11,9 @@
 
     <div class="menu2">
             
-        <a href="/login/student"><button class="login" >Student Login</button></a>
-        <a href="/login/company"><button class="login" >Company Login</button></a>
-        <a href="/login/admin"><button class="login">Admin Login</button></a>
+        <a href="{{ url_for('login', role='student') }}"><button class="login" >Student Login</button></a>
+        <a href="{{ url_for('login', role='company') }}"><button class="login" >Company Login</button></a>
+        <a href="{{ url_for('login', role='admin') }}"><button class="login">Admin Login</button></a>
     </div>
  </div>
 {% endblock %}
@@ -43,3 +43,9 @@
 </div>
 
 {% endblock%}
+
+
+<!-- 
+        <a href="/login/student"><button class="login" >Student Login</button></a>
+        <a href="/login/company"><button class="login" >Company Login</button></a>
+        <a href="/login/admin"><button class="login">Admin Login</button></a> -->

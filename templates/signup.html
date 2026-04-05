@@ -3,34 +3,82 @@
 
 {% block content %}
 
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+    <div class="mflash">
+      <div class="flash">
+        {{ message }}
+      </div>
+    </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
 <div class="login1">
-    <form method="post" action="/signup">
+    {% if role=="student" %}
+    <form method="post" action="{{ url_for('signup', role=role) }}">
         <div class="mb-4">
-            <label for="exampleFormControlInput1" class="form-label">Full Name</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Name" >
+            <label for="name" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="name" placeholder="Name" name="name">
         </div>
         <div class="mb-4">
-            <label for="exampleFormControlInput1" class="form-label">Email</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="example@gmail.com">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="example@gmail.com" name="email">
         </div>
     
         <div class="mb-4">
-            <label for="exampleFormControlInput1" class="form-label">Phone No.</label>
-            <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="phone Number">
+            <label for="phone" class="form-label">Phone No.</label>
+            <input type="number" class="form-control" id="phone" placeholder="phone Number" name="phone">
         </div>
                 <div class="mb-4">
-            <label for="exampleFormControlInput1" class="form-label"> password</label>
-            <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="password">
+            <label for="password" class="form-label"> password</label>
+            <input type="password" class="form-control" id="password" placeholder="password" name="password">
         </div>
         <div class="mb-4">
-            <label for="exampleFormControlInput1" class="form-label">Confirm Password</label>
-            <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="password">
+            <label for="cnfpassword" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="cnf password" placeholder="password" name="pcnfassword">
         </div>
-       <div > <input type="submit" value="signup" class="signup-btn"> </div> 
+       <button type="submit" value=signup class="login-btn">Login</button></div> 
     </form>
+    
+
+    {% elif role=="company" %}
+    <form method="post" action="{{ url_for('signup', role=role) }}">
+        <div class="mb-4">
+            <label for="name" class="form-label">Company Name</label>
+            <input type="text" class="form-control" id="name" placeholder="Name" name="name" >
+        </div>
+        <div class="mb-4">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="example@gmail.com" name="email">
+        </div>
+    
+        <div class="mb-4">
+            <label for="phone" class="form-label">Hr Contact</label>
+            <input type="text" class="form-control" id="phone" placeholder="Hr Contact" name="phone">
+        </div>
+
+        <div class="mb-4">
+            <label for="website" class="form-label">Website</label>
+            <input type="text" class="form-control" id="website" placeholder="Https://" name="website">
+        </div>
+        
+        <div class="mb-4">
+            <label for="password" class="form-label"> password</label>
+            <input type="password" class="form-control" id="password" placeholder="password" name="password">
+        </div>
+        <div class="mb-4">
+            <label for="cnfpassword" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="cnfpassword" placeholder="password" name="cnfpassword">
+        </div>
+       <button type="submit" value=signup class="login-btn">Login</button></div> 
+    </form>
+    {% endif %}
+
      <hr>
     <p class="text-center mb-0">
-        Already have an account? <a href="{{url_for('login')}}">Login</a> 
+        Already have an account? <a href="{{url_for('login',role=role)}}">Login</a> 
     </p>
     
 

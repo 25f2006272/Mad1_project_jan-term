@@ -4,18 +4,21 @@ from datetime import datetime
 
 db=SQLAlchemy()
 
+class admin(db.Model):
+    id=db.Column(db.Integer,primary_key=True)
+    name=db.Column(db.String(200),nullable=False)
+    email=db.Column(db.String(200),nullable=False)
+    password=db.Column(db.String(200),nullable=False)
+    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'), nullable=False)
 
 class roles(db.Model):
     id=db.Column(db.Integer,primary_key=True)
     role=db.Column(db.String(10),nullable=False)
-    email=db.Column(db.String(200),nullable=False,unique=True)
-    password=db.Column(db.String(200),nullable=False)
 
 
 class students(db.Model):
     id=db.Column(db.Integer,primary_key=True)
     name=db.Column(db.String(200),nullable=False)
-    # username=db.Column(db.String(200))
     email=db.Column(db.String(200),nullable=False)
     password=db.Column(db.String(200),nullable=False)
     phone=db.Column(db.String(20),nullable=False)
@@ -23,6 +26,7 @@ class students(db.Model):
     cgpa=db.Column(db.Float)
     graduation_year=db.Column(db.Integer)
     resume=db.Column(db.String(200))
+    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'), nullable=False)
 
 
 class application(db.Model):
@@ -38,12 +42,13 @@ class company(db.Model):
     id=db.Column(db.Integer,primary_key=True)
     company_name=db.Column(db.String(200),nullable=False)
     email=db.Column(db.String(200),nullable=False)
+    password=db.Column(db.String(200),nullable=False)
     hr_contact=db.Column(db.String(100))
     website=db.Column(db.String(200))
     description=db.Column(db.Text)
     address=db.Column(db.Text)
     is_approved=db.Column(db.Boolean,default=False)
-    user_id=db.Column(db.Integer,db.ForeignKey('roles.id'),nullable=False)
+    role_id=db.Column(db.Integer,db.ForeignKey('roles.id'),nullable=False)
 
 
 
