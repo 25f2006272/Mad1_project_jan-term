@@ -2,6 +2,21 @@
 {% block title %} student profile {% endblock %}
 
 {% block content %}
+<h2 class="h2">My Application</h2>
+{% if application %}
 
+    <ul>
+    {% for i in applications %}
+        <li>{{ i.drive_id }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+<div class="mappli">
+    <div class="appli">
+    <p>you haven't applied yet </p>
+</div>
+</div>
+
+{% endif %}
 
 {% endblock %}

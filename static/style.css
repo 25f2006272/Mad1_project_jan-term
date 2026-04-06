@@ -256,6 +256,8 @@ background-color: rgb(87, 2, 12);
  }
  .h2{
     color: rgb(83, 3, 31);
+    margin-left: 30px;
+   padding-top: 30px;
     
  }
 
@@ -357,4 +359,38 @@ display: flex;
     justify-content: center;
     color: green;
 
+ }
+.mappli{
+    /* background-color: blue; */
+    display: flex;
+    justify-content: center;
+    /* width: 100%; */
+    height: auto;
+    margin-top: 50px;
+    margin-left: 40px;
+}
+ .appli{
+    display: flex;
+    justify-content: center;
+    width:70% ;
+    height:auto;
+    margin-left: 40px;
+    margin-top: 50px;
+    padding-top: 50px;
+    padding: 90px;
+    border-radius: 1%;
+    background-color: rgba(179, 242, 232, 0.665);
+    
+ }
+ .blockbtn{
+    background-color: rgb(87, 2, 9);
+    border-radius: 8%;
+    color: white;
+ }
+
+ .total{
+    padding: 30px;
+   padding-left: 1px;
+   
+    margin-top: 10px;
  }

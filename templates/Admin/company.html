@@ -23,7 +23,7 @@
 
    <div class="scontainer">
       <div class="ssearch">
-      <form method="GET" action="/students">
+      <form method="GET" action="{{url_for('admin_company')}}">
          <input type="text" name="search" placeholder="Search by Company Name, Email">
          <button type="submit">Search</button>
       </form>
@@ -45,15 +45,35 @@
          </tr>
          
          
-            {% for s in students %}
+            {% for s in companies %}
                <tr>
                   <td>{{ s.id }} </td>
                   <td>{{ s.name }}</td>
                   <td>{{ s.email }}</td>
-                  <td>{{ s.contact }}</td>
+                  <td>{{ s.hr_contact }}</td>
                   <td>{{ s.website }}</td>
-                  <td>{{ s.status }}</td>
-                  <td>{{ s.Action }}</td>
+                  <td>
+                     {% if s.status==True%}
+                     Active
+                     {% else %}
+                     Block
+                     {% endif %}
+                  </td>
+                  <td>
+                     {% if s.is_approved==False %}
+                     <a href="{{url_for('approve_company',id=s.id)}}"><button class="blockbtn">Approve</button></a>
+                     {% endif %}
+
+                     {% if s.status==True%}
+                     
+                     <a href="{{url_for('block_company',id=s.id)}}"><button class="blockbtn">Blacklist</button></a>
+                     {% else %}
+                     <a href="{{url_for('unblock_company',id=s.id)}}"><button class="blockbtn">Unblacklist</button></a>
+                     
+                     {% endif %}
+
+
+                  </td>
                   
                </tr>
             {% endfor %}

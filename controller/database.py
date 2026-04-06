@@ -27,6 +27,7 @@ class students(db.Model):
     graduation_year=db.Column(db.Integer)
     resume=db.Column(db.String(200))
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'), nullable=False)
+    status=db.Column(db.Boolean,default=True)
 
 
 class application(db.Model):
@@ -47,6 +48,7 @@ class company(db.Model):
     website=db.Column(db.String(200))
     description=db.Column(db.Text)
     address=db.Column(db.Text)
+    status=db.Column(db.Boolean,default=False)
     is_approved=db.Column(db.Boolean,default=False)
     role_id=db.Column(db.Integer,db.ForeignKey('roles.id'),nullable=False)
 
@@ -58,7 +60,8 @@ class drive(db.Model):
     job_description=db.Column(db.Text,nullable=False)
     criteria=db.Column(db.Text)
     salary_package=db.Column(db.String(100))
-    application_deadline=db.Column(db.DateTime)
+    application_deadline=db.Column(db.Date)
+    location=db.Column(db.String(200))
     status=db.Column(db.String(50),default='pending')
     company_id=db.Column(db.Integer,db.ForeignKey('company.id'),nullable=False)
 

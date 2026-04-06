@@ -8,37 +8,37 @@
     <div><h2>My Profile</h2></div>
    
 <div class="cprofile">
-    <form action="">
+    <form action="{{url_for('create_internship')}}" method="POST">
         <div class="cpprofile">
             <div class="mb-3">
-                <label class="form-label"> Job Title</label>
-                <input type="text" class="form-control" name="username" placeholder=" Enter Job Title">
+                <label for="job_title" class="form-label"> Job Title</label>
+                <input type="text" class="form-control" name="job_title" placeholder=" Enter Job Title">
             </div>
 
 
             <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Job Description</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <label for="job_description" class="form-label">Job Description</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" name="job_description" rows="3"></textarea>
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Eligibility Criteria</label>
-                <input type="text" class="form-control" name="username" >
+                <label for="criteria" class="form-label">Eligibility Criteria</label>
+                <input type="text" class="form-control" name="criteria" >
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Salary Package</label>
-                <input type="text" class="form-control" name="username" placeholder=" e.g., 10-60LPA">
+                <label for="salary_package" class="form-label">Salary Package</label>
+                <input type="text" class="form-control" name="salary_package" placeholder=" e.g., 10-60LPA">
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Location</label>
-                <input type="text" class="form-control" name="username" >
+                <label for="location" class="form-label">Location</label>
+                <input type="text" class="form-control" name="location" >
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Application Deadline</label>
-                <input type="date" class="form-control" name="username" >
+                <label for="application_deadline" class="form-label">Application Deadline</label>
+                <input type="date" class="form-control" name="application_deadline" >
             </div>
 
             <button type="submit" class="upbtn">Create Drive</button>

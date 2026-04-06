@@ -16,29 +16,37 @@
 <h2 class="sheading">Company Dashboard </h2>
 
 <div class="srectangle">
-    <div class="rectangle"><h3>Total Drives</h3></div>
-    <div class="rectangle"><h3>Total Application</h3></div>
-    <div class="rectangle"><h3>Approved Status</h3> <br> <p class="txt"><b>Approved</b></p></div>
+    <div class="rectangle"><h3>Total Drives</h3><div class="total"><h2>{{total_drive}}</h2></div></div>
+    <div class="rectangle"><h3>Total Application</h3><div class="total"><h2>{{total_application}}</h2></div></div>
+    <div class="rectangle"><h3>Approved Status</h3> <br> <h3 class="txt">
+        {% for s in stats%}
+        {% if s.status== True %}
+        Approved
+        {% else %}
+        Pending
+        {% endif %}
+        {% endfor %}
+    </div></div>
 </div>
 
 <div class="sprofile">
     <nav class="snav">
         <h2>My Profile</h2>
-        <a href="profile.html"><button type="button" class="btnbtn">Edit Profile</button></a>
+        <a href="{{url_for('company_profile')}}"><button type="button" class="btnbtn">Edit Profile</button></a>
     </nav>
 
     <div class="row">
         <div class="col-md-6">
             <div class="sright">
-                <p><b>Company Name:</b> </p>
-                <p><b>Email:</b></p>
-                <p><b>Hr Contact:</b></p>
+                <p><b>Company Name:</b>{{ companydetail.company_name}} </p>
+                <p><b>Email:</b>{{ companydetail.email}}</p>
+                <p><b>Hr Contact:</b>{{ companydetail.hr_contact}}</p>
             </div>
         </div>
 
         <div class="col-md-6">
             <div class="sleft">
-                <p><b>Website:</b> </p>
+                <p><b>Website:</b> {{ companydetail.website}}</p>
                 <p><b>Status:</b> Approved</p>
                  
             </div>

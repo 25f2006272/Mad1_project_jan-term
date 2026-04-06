@@ -19,9 +19,9 @@
 <h2 class="sheading">Student Dashboard </h2>
 
 <div class="srectangle">
-    <div class="rectangle"><h3>Available drives</h3></div>
-    <div class="rectangle"><h3>Applied</h3></div>
-    <div class="rectangle"><h3>Selected</h3></div>
+    <div class="rectangle"><h3>Available drives</h3><div class="total"><h2>{{total_drive}}</h2></div></div>
+    <div class="rectangle"><h3>Applied</h3><div class="total"><h2>{{applied}}</h2></div></div>
+    <div class="rectangle"><h3>Selected</h3><div class="total"><h2>{{selected}}</h2></div></div>
 </div>
 
 <div class="sprofile">
@@ -33,17 +33,17 @@
     <div class="row">
         <div class="col-md-6">
             <div class="sright">
-                <p><b>Name:</b> </p>
-                <p><b>Email:</b></p>
-                <p><b>Phone:</b></p>
+                <p><b>Name:</b> {{ studentdetail.name }}</p>
+                <p><b>Email:</b>{{ studentdetail.email }}</p>
+                <p><b>Phone:</b>{{ studentdetail.phone }}</p>
             </div>
         </div>
 
         <div class="col-md-6">
             <div class="sleft">
-                <p><b>Branch:</b> </p>
-                <p><b>Cgpa:</b></p>
-                <p><b>Graduation Year:</b></p>
+                <p><b>Branch:</b> {{ studentdetail.branch }}</p>
+                <p><b>Cgpa:</b>{{ studentdetail.cgpa }}</p>
+                <p><b>Graduation Year:</b>{{ studentdetail.graduation_year }}/p>
             </div>
         </div>
     </div>

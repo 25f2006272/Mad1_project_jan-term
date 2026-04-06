@@ -55,9 +55,14 @@ def login(role):
             if user:
                 session['user_id']=user.id
                 session['role']=user.role_id
-               
-                flash("Login succesful")
-                return redirect(url_for("student_dashboard",role=role))
+
+                if user.status == "False":
+                    flash("You are blacklisted!")
+                    return redirect('/login')
+            
+                else:
+                    flash("Login succesful")
+                    return redirect(url_for("student_dashboard",role=role))
             elif user is None:
                 flash("Signup first")
                 return redirect(url_for('signup', role=role))
@@ -75,9 +80,13 @@ def login(role):
             if user:
                 session['user_id']=user.id
                 session['role']=user.role_id
-               
-                flash("Login succesful")
-                return redirect(url_for("company_dashboard",role=role))
+                if user.is_approved==False:
+                    flash('Your account is not approved')
+                    return render_template("login.html",role=role)
+                else:
+                    flash("Login succesful")
+                    return redirect(url_for("company_dashboard",role=role))
+
             elif user is None:
                 flash("Signup first")
                 return redirect(url_for('signup', role=role))
@@ -85,7 +94,7 @@ def login(role):
                 flash("Invalid email or password")
                 return render_template("login.html",role=role)
             
-            return render_template("company/dashboard.html",role=role)
+
         elif role=="admin":
             
 
@@ -175,9 +184,16 @@ def signup(role):
 
     return render_template("signup.html",role=role)
 
-@app.route("/student/dashboard")
+@app.route("/student/dashboard",methods=['GET','POST'])
 def student_dashboard():
-    return render_template("student/dashboard.html")
+    student_id=session['user_id']
+    studentdetail=students.query.get(student_id)
+
+    total_drive=drive.query.count()
+    applied=application.query.filter_by(studennt_id=student_id).count()
+    selected=application.query.filter_by(studennt_id=student_id,status="Applied").count()
+
+    return render_template("student/dashboard.html",studentdetail=studentdetail,total_drive=total_drive,applied=applied,selected=selected)
 
 @app.route("/student/internship")
 def internship():
@@ -185,26 +201,109 @@ def internship():
 
 @app.route("/student/myapplication")
 def student_application():
-    return render_template("student/myapplication.html")
+    student_id=session['user_id']
+    allapplication=application.query.filter_by(studennt_id=student_id).all()
 
-@app.route("/student/profile")
+    if allapplication :
+        return render_template("student/myapplication.html")
+
+    else:
+        return render_template("student/myapplication.html")
+    
+
+@app.route("/student/profile",methods=['GET','POST'])
 def student_profile():
+    if request.method == 'POST':
+        user_id = session['user_id']
+
+        user =students.query.get(user_id)
+
+        user.name = request.form.get('name')
+        user.phone = request.form.get('phone')
+        user.branch = request.form.get('branch')
+        user.grad_year = request.form.get('graduation')
+        user.skills = request.form.get('skill')
+        file = request.files.get('resume')
+        if file and file.filename != "":
+            filename = file.filename
+            file.save("static/resume/"+filename)
+            user.resume = filename
+
+        db.session.commit()
+
+        flash("Profile Updated Successfully")
+        return redirect(url_for('student_dashboard'))
+
     return render_template("student/profile.html")
 
 
 
 # for company
 
-@app.route("/company/dashboard")
+@app.route("/company/dashboard",methods=['GET','POST'])
 def company_dashboard():
-    return render_template("company/dashboard.html")
+    company_id=session['user_id']
+    companydetail=company.query.get(company_id)
 
-@app.route("/company/profile")
+    total_drive=drive.query.count()
+    total_application=application.query.count()
+    stats=company.query.filter_by(id=company_id)
+
+    return render_template("company/dashboard.html",companydetail=companydetail,total_drive=total_drive,total_application=total_application,stats=stats)
+
+@app.route("/company/profile",methods=['GET','POST'])
 def company_profile():
+    if request.method == 'POST':
+        user_id = session['user_id']
+
+        user =company.query.get(user_id)
+
+        name = request.form.get('name')
+        hr = request.form.get('hr_contact')
+        website = request.form.get('website')
+        description = request.form.get('description')
+        address = request.form.get('address')
+
+        user.company_name =name
+        user.hr_contact =hr
+        user.website =website
+        user.description =description
+        user.address =address
+        db.session.commit()
+
+        flash("Profile Updated Successfully")
+        return redirect(url_for('company_dashboard'))
     return render_template("company/profile.html")
 
-@app.route("/company/internship")
+@app.route("/company/internship",methods=['GET','POST'])
 def create_internship():
+    if request.method == 'POST':
+        user_id = session['user_id']
+
+        job_title= request.form.get('job_title')
+        job_description= request.form.get('job_description')
+        criteria= request.form.get('criteria')
+        salary_package= request.form.get('salary_package')
+        location= request.form.get('location')
+        application_deadline= request.form.get('application_deadline')
+
+        deadline = datetime.strptime(request.form.get("application_deadline"), "%Y-%m-%d").date()
+        new_drive=drive(
+            company_id=user_id,
+            job_title=job_title,
+            job_description=job_description,
+            criteria=criteria,
+            salary_package=salary_package,
+            location=location,
+            application_deadline=deadline
+
+        )
+        
+        db.session.add(new_drive)
+        db.session.commit()
+
+        flash("Drive Created Successfully")
+        return redirect(url_for('company_dashboard'))
     return render_template("company/create_internship.html")
 
 
@@ -214,18 +313,86 @@ def create_internship():
 
 @app.route("/admin/dashboard")
 def admin_dashboard():
-    return render_template("admin/dashboard.html")
+    total_students=students.query.count()
+    total_company=company.query.count()
+    total_application=application.query.count()
+    total_drives=drive.query.count()
+
+    return render_template("admin/dashboard.html",total_students=total_students,total_company=total_company,total_application=total_application,total_drives=total_drives)
 
 @app.route("/admin/student")
 def admin_student():
-    return render_template("admin/students.html")
+    search=request.args.get('search')
+    if search:
+        student=students.query.filter(
+            (students.name.contains(search))|
+            (students.email.contains(search))|
+            (students.phone.contains(search))
+        ).all()
+
+    else:
+        student=students.query.all()
+
+
+    return render_template("admin/students.html", student=student)
+
+
+@app.route("/admin/student/block/<int:id>")
+def block_student(id):
+    student=students.query.get(id)
+    student.status=False
+    db.session.commit()
+
+@app.route("/admin/student/unblock/<int:id>")
+def unblock_student(id):
+    student=students.query.get(id)
+    student.status=True
+    db.session.commit()
+
 
 @app.route("/admin/company")
 def admin_company():
-    return render_template("admin/company.html")
+    search=request.args.get('search')
+    if search:
+        companies=company.query.filter(
+            (company.name.contains(search))|
+            (company.email.contains(search))|
+            (company.phone.contains(search))
+        ).all()
+
+    else:
+        companies=company.query.all()
+    return render_template("admin/company.html",companies=companies)
+
+
+@app.route("/admin/company/block/<int:id>")
+def block_company(id):
+    companies=company.query.get(id)
+    companies.status=False
+    db.session.commit()
+    return redirect("/admin/company")
+
+@app.route("/admin/company/unblock/<int:id>")
+def unblock_company(id):
+    companies=company.query.get(id)
+    companies.status=True
+    db.session.commit()
+    return redirect("/admin/company")
+
+@app.route("/admin/company/approve/<int:id>")
+def approve_company(id):
+    companies = company.query.get(id)
+    companies.is_approved = True
+    db.session.commit()
+    flash('Approved succesfully')
+    return redirect("/admin/company")
+
+
+
 
 @app.route("/admin/internship")
 def admin_internship():
+    
     return render_template("admin/admin_internship.html")
 
 @app.route("/admin/application")
