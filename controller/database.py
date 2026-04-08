@@ -28,6 +28,7 @@ class students(db.Model):
     resume=db.Column(db.String(200))
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'), nullable=False)
     status=db.Column(db.Boolean,default=True)
+    applications=db.relationship('application', backref='student' , cascade='all,delete-orphan')
 
 
 class application(db.Model):
@@ -35,6 +36,7 @@ class application(db.Model):
     studennt_id=db.Column(db.Integer,db.ForeignKey('students.id'),nullable=False)
     drive_id=db.Column(db.Integer,db.ForeignKey('drive.id'),nullable=False)
     status=db.Column(db.String(20),default='Applied')
+    
 
 
 
@@ -51,6 +53,7 @@ class company(db.Model):
     status=db.Column(db.Boolean,default=False)
     is_approved=db.Column(db.Boolean,default=False)
     role_id=db.Column(db.Integer,db.ForeignKey('roles.id'),nullable=False)
+    drives=db.relationship('drive',backref='company',cascade='all,delete-orphan')
 
 
 
@@ -64,6 +67,7 @@ class drive(db.Model):
     location=db.Column(db.String(200))
     status=db.Column(db.String(50),default='pending')
     company_id=db.Column(db.Integer,db.ForeignKey('company.id'),nullable=False)
+    aapplications=db.relationship('application',backref='drive',cascade='all,delete-orphan')
 
 
 

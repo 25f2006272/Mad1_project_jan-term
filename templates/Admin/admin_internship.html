@@ -34,21 +34,26 @@
             <th>Location</th>
             <th>Salary</th>
             <th>Deadline</th>
-            <th>Action</th>
             <th>Status</th>
+            <th>Action</th>
+            
          </tr>
          
          
-            {% for s in students %}
+            {% for s in drives %}
                <tr>
                   <td>{{ s.id }} </td>
-                  <td>{{ s.name }}</td>
-                  <td>{{ s.email }}</td>
-                  <td>{{ s.phone }}</td>
-                  <td>{{ s.branch }}</td>
-                  <td>{{ s.cgpa }}</td>
-                  <td>{{ s.year }}</td>
+                  <td>{{ s.company.company_name }}</td>
+                  <td>{{ s.job_title }}</td>
+                  <td>{{ s.location }}</td>
+                  <td>{{ s.salary_package }}</td>
+                  <td>{{ s.application_deadline }}</td>
                   <td>{{ s.status }}</td>
+                  <td>
+                       <a href="/admin/application/approve/{{ s.id }}">Approve</a>
+                       <a href="/admin/application/reject/{{ s.id }}">Reject</a>
+                  </td>
+                  
                   
                </tr>
             {% endfor %}

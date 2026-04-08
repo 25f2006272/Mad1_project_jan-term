@@ -4,6 +4,21 @@
 
 {% block content %}
 
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+    <div class="mflash">
+      <div class="flash">
+        {{ message }}
+      </div>
+    </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+
+
+
 <div class="content-fluid">
 
     <div><h2>Company Profile</h2></div>

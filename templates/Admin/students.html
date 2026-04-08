@@ -14,6 +14,19 @@
      
 {% block content %}
 
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+    <div class="mflash">
+      <div class="flash">
+        {{ message }}
+      </div>
+    </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+
 
 <div class="a">
    
@@ -56,14 +69,14 @@
                   <td>{{ s.branch }}</td>
                   <td>{{ s.cgpa }}</td>
                   <td>{{ s.year }}</td>
-                  <td>{% if s.status=='True'%}
+                  <td>{% if s.status==True%}
                      Active
                      {% else %}
                      Block
                      {% endif %}
                   </td>
                   <td>
-                     {% if s.status=='True'%}
+                     {% if s.status==True%}
                      <a href="{{url_for('block_student',id=s.id)}}"><button class="blockbtn">Blacklist</button></a>
                      {% else %}
                      <a href="{{url_for('unblock_student',id=s.id)}}"><button class="blockbtn">Unblacklist</button></a>

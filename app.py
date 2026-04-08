@@ -249,7 +249,12 @@ def company_dashboard():
     total_application=application.query.count()
     stats=company.query.filter_by(id=company_id)
 
-    return render_template("company/dashboard.html",companydetail=companydetail,total_drive=total_drive,total_application=total_application,stats=stats)
+
+
+    all_drives = drive.query.filter_by(company_id=company_id).all()
+
+
+    return render_template("company/dashboard.html",companydetail=companydetail,total_drive=total_drive,total_application=total_application,stats=stats,all_drives=all_drives)
 
 @app.route("/company/profile",methods=['GET','POST'])
 def company_profile():
@@ -342,12 +347,13 @@ def block_student(id):
     student=students.query.get(id)
     student.status=False
     db.session.commit()
-
+    return redirect('/admin/student')
 @app.route("/admin/student/unblock/<int:id>")
 def unblock_student(id):
     student=students.query.get(id)
     student.status=True
     db.session.commit()
+    return redirect('/admin/student')
 
 
 @app.route("/admin/company")
@@ -392,15 +398,35 @@ def approve_company(id):
 
 @app.route("/admin/internship")
 def admin_internship():
-    
-    return render_template("admin/admin_internship.html")
+    drives=drive.query.all()
+    return render_template("admin/admin_internship.html",drives=drives)
 
 @app.route("/admin/application")
 def admin_application():
-    return render_template("admin/application.html")
+    applications=application.query.all()
+    return render_template("admin/application.html",applications=applications)
 
 
+@app.route("/admin/application/approve/<int:id>")
+def approve_application(id):
+    application = application.query.get(id)
+    application.status = "Approved"
+    db.session.commit()
+    return redirect("/admin/applications")
 
+
+@app.route("/admin/application/reject/<int:id>")
+def reject_application(id):
+    application = application.query.get(id)
+    application.status = "Rejected"
+    db.session.commit()
+    return redirect("/admin/applications")
+
+@app.route("/company/da/")
+def all_drive():
+    company_id = session["company_id"]
+    all_drives = drive.query.filter_by(company_id=company_id).all()
+    return redirect("/company/all_drive",all_drives=all_drives)
 
 
 

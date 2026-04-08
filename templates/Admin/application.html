@@ -37,18 +37,16 @@
          </tr>
          
          
-            {% for s in students %}
-               <tr>
-                  <td>{{ s.id }} </td>
-                  <td>{{ s.name }}</td>
-                  <td>{{ s.email }}</td>
-                  <td>{{ s.phone }}</td>
-                  <td>{{ s.branch }}</td>
-                  <td>{{ s.cgpa }}</td>
-                  <td>{{ s.year }}</td>
-                  <td>{{ s.status }}</td>
-                  
-               </tr>
+            {% for s in applications %}
+
+            <tr>
+               <td>{{ s.id }}</td>
+               <td>{{ s.students.name }}</td>
+               <td>{{ s.student.email }}</td>
+               <td>{{ s.drive.company.name }}</td>
+               <td>{{ s.drive.job_title }}</td>
+               <td>{{ s.status }}</td>
+            </tr>
             {% endfor %}
          
       </table>

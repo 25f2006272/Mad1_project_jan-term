@@ -27,7 +27,7 @@
 <div class="sprofile">
     <nav class="snav">
         <h2>My Profile</h2>
-        <a href="profile.html"><button type="button" class="btnbtn">Edit Profile</button></a>
+        <a href="{{url_for('student_profile')}}"><button type="button" class="btnbtn">Edit Profile</button></a>
     </nav>
 
     <div class="row">
@@ -43,7 +43,7 @@
             <div class="sleft">
                 <p><b>Branch:</b> {{ studentdetail.branch }}</p>
                 <p><b>Cgpa:</b>{{ studentdetail.cgpa }}</p>
-                <p><b>Graduation Year:</b>{{ studentdetail.graduation_year }}/p>
+                <p><b>Graduation Year:</b>{{ studentdetail.graduation_year }}</p>
             </div>
         </div>
     </div>
