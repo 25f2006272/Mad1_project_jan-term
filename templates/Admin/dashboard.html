@@ -15,17 +15,7 @@
 {% block content %}
 
 
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    {% for message in messages %}
-    <div class="mflash">
-      <div class="flash">
-        {{ message }}
-      </div>
-    </div>
-    {% endfor %}
-  {% endif %}
-{% endwith %}
+
 
 
 <h2 class="sheading">Admin Dashboard </h2>

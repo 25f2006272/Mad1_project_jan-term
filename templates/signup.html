@@ -1,19 +1,7 @@
 {%extends "base.html" %}
-{% block title %} Login-page {% endblock %}
+{% block title %} Signup-page {% endblock %}
 
 {% block content %}
-
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    {% for message in messages %}
-    <div class="mflash">
-      <div class="flash">
-        {{ message }}
-      </div>
-    </div>
-    {% endfor %}
-  {% endif %}
-{% endwith %}
 
 <div class="login1">
     {% if role=="student" %}
@@ -72,7 +60,7 @@
             <label for="cnfpassword" class="form-label">Confirm Password</label>
             <input type="password" class="form-control" id="cnfpassword" placeholder="password" name="cnfpassword">
         </div>
-       <button type="submit" value=signup class="login-btn">Login</button></div> 
+       <button type="submit" value=signup class="login-btn">Signup</button></div> 
     </form>
     {% endif %}
 

@@ -1,25 +1,14 @@
 {% extends "base.html" %}
-{% block title %} student profile {% endblock %}
+{% block title %} Company Internship {% endblock %}
 
 
 {% block content %}
 
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    {% for message in messages %}
-    <div class="mflash">
-      <div class="flash">
-        {{ message }}
-      </div>
-    </div>
-    {% endfor %}
-  {% endif %}
-{% endwith %}
 
 
 
 <div class="content-fluid">
-    <div><h2>My Profile</h2></div>
+    <div><h2>Create internship</h2></div>
    
 <div class="cprofile">
     <form action="{{url_for('create_internship')}}" method="POST">

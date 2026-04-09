@@ -50,8 +50,8 @@
                   <td>{{ s.application_deadline }}</td>
                   <td>{{ s.status }}</td>
                   <td>
-                       <a href="/admin/application/approve/{{ s.id }}">Approve</a>
-                       <a href="/admin/application/reject/{{ s.id }}">Reject</a>
+                       <a href="{{ url_for('approve_application', id=s.id) }}"><button type="submit" class="upbtn">Approve</button></a>
+                       <a href="{{ url_for('reject_application', id=s.id) }}"><button type="submit" class="upbtn">Reject</button></a>
                   </td>
                   
                   

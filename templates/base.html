@@ -13,10 +13,6 @@
             <div class="logo"><h2>Placement portal</h1></div>
                 <!-- <a href="home.html">Home</a> -->
             <div class="menu">
-                <!-- <div class="menu1">
-                    <a href="Placement.html">Placement</a>
-                    <a href=".html">About</a>
-                </div> -->
                 <div class="navbar2">{%block navbar %} {% endblock %}</div>
 
 
@@ -25,10 +21,35 @@
     </nav>
     
 
-    {%block content %} {% endblock %}
-    <footer class="footer">
-        <div> © 2026 Placement portal.All rights reserved</div>
-    </footer>
+
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+    <div class="mflash">
+      <div class="flash">
+        {{ message }}
+      </div>
     </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+
+
+    {%block content %} {% endblock %}
+<footer id="about">
+  <div class="footer">
+    
+    <h2>About Us</h2>
+    <p>
+      A simple platform for students to find job openings and apply for placement drives easily.
+      We connect students with top companies and simplify the placement process.
+    </p>
+
+    <p>© 2026 Placement portal. All rights reserved</p>
+
+  </div>
+</footer>
 </body>
 </html>

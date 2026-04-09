@@ -3,17 +3,6 @@
 
 {% block content %}
 
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    {% for message in messages %}
-    <div class="mflash">
-      <div class="flash">
-        {{ message }}
-      </div>
-    </div>
-    {% endfor %}
-  {% endif %}
-{% endwith %}
 
 <div class="login1">
     <form method="POST" action="{{ url_for('login', role=role) }}">

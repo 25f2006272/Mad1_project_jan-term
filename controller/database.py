@@ -9,11 +9,8 @@ class admin(db.Model):
     name=db.Column(db.String(200),nullable=False)
     email=db.Column(db.String(200),nullable=False)
     password=db.Column(db.String(200),nullable=False)
-    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'), nullable=False)
+ 
 
-class roles(db.Model):
-    id=db.Column(db.Integer,primary_key=True)
-    role=db.Column(db.String(10),nullable=False)
 
 
 class students(db.Model):
@@ -26,7 +23,6 @@ class students(db.Model):
     cgpa=db.Column(db.Float)
     graduation_year=db.Column(db.Integer)
     resume=db.Column(db.String(200))
-    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'), nullable=False)
     status=db.Column(db.Boolean,default=True)
     applications=db.relationship('application', backref='student' , cascade='all,delete-orphan')
 
@@ -52,7 +48,6 @@ class company(db.Model):
     address=db.Column(db.Text)
     status=db.Column(db.Boolean,default=False)
     is_approved=db.Column(db.Boolean,default=False)
-    role_id=db.Column(db.Integer,db.ForeignKey('roles.id'),nullable=False)
     drives=db.relationship('drive',backref='company',cascade='all,delete-orphan')
 
 

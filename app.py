@@ -10,14 +10,14 @@ app.secret_key="Secretxyz21"
 db.init_app(app) 
 with app.app_context():
     db.create_all()
-    if not roles.query.filter_by(role="student").first():
-        db.session.add(roles(role="student"))
+    # if not roles.query.filter_by(role="student").first():
+    #     db.session.add(roles(role="student"))
 
-    if not roles.query.filter_by(role="company").first():
-        db.session.add(roles(role="company"))
+    # if not roles.query.filter_by(role="company").first():
+    #     db.session.add(roles(role="company"))
 
-    if not roles.query.filter_by(role="admin").first():
-        db.session.add(roles(role="admin"))
+    # if not roles.query.filter_by(role="admin").first():
+    #     db.session.add(roles(role="admin"))
 
 
     admin_user= admin.query.filter_by(email='admin@gmail.com').first()
@@ -27,7 +27,7 @@ with app.app_context():
             name="Admin",
             email="admin1@gmail.com",
             password="admin12345",
-            role_id=3
+        
         )
         db.session.add(admin_user)
 
@@ -54,11 +54,16 @@ def login(role):
 
             if user:
                 session['user_id']=user.id
-                session['role']=user.role_id
+                session['role']=role
 
                 if user.status == "False":
                     flash("You are blacklisted!")
                     return redirect('/login')
+                
+                elif user.password!=password and user.email!=email:
+                    flash("Invalid email or password")
+                    return render_template("login.html",role=role)
+
             
                 else:
                     flash("Login succesful")
@@ -79,9 +84,13 @@ def login(role):
 
             if user:
                 session['user_id']=user.id
-                session['role']=user.role_id
+                session['role']=role
                 if user.is_approved==False:
                     flash('Your account is not approved')
+                    return render_template("login.html",role=role)
+                
+                elif user.password!=password and user.email!=email:
+                    flash("Invalid email or password")
                     return render_template("login.html",role=role)
                 else:
                     flash("Login succesful")
@@ -107,7 +116,7 @@ def login(role):
             if user:
                 if user.password==password and user.email==email:
                     session['user_id']=user.id
-                    session['role']=user.role_id
+                    session['role']=role
                     flash('Welcome to the admin dashboard')
                     return render_template("admin/dashboard.html",role=role)
                 else :
@@ -137,11 +146,11 @@ def signup(role):
                     email=email,
                     password=password,
                     phone=phone,
-                    role_id=1
+                 
                 )
                 db.session.add(new_student)
                 db.session.commit()
-                # flash('Now you can login')
+                flash('Now you can login')
                 return redirect(url_for("login",role=role))
 
             if user:
@@ -166,12 +175,12 @@ def signup(role):
                     email=email,
                     password=password,
                     hr_contact=hr_contact,
-                    role_id=2,
+                    
                     website=website
                 )
                 db.session.add(new_company)
                 db.session.commit()
-                # flash('Now you can login')
+                flash('Now you can login')
                 return redirect(url_for("login",role=role))
 
             if user:
@@ -193,11 +202,14 @@ def student_dashboard():
     applied=application.query.filter_by(studennt_id=student_id).count()
     selected=application.query.filter_by(studennt_id=student_id,status="Applied").count()
 
-    return render_template("student/dashboard.html",studentdetail=studentdetail,total_drive=total_drive,applied=applied,selected=selected)
+    drives=drive.query.all()
+
+    return render_template("student/dashboard.html",studentdetail=studentdetail,total_drive=total_drive,applied=applied,selected=selected,drives=drives)
 
 @app.route("/student/internship")
 def internship():
-    return render_template("student/internship.html")
+    drives=drive.query.all()
+    return render_template("student/internship.html",drives=drives)
 
 @app.route("/student/myapplication")
 def student_application():
@@ -361,10 +373,9 @@ def admin_company():
     search=request.args.get('search')
     if search:
         companies=company.query.filter(
-            (company.name.contains(search))|
-            (company.email.contains(search))|
-            (company.phone.contains(search))
-        ).all()
+            (company.company_name.contains(search))|
+            (company.email.contains(search))
+            ).all()
 
     else:
         companies=company.query.all()
@@ -407,20 +418,44 @@ def admin_application():
     return render_template("admin/application.html",applications=applications)
 
 
-@app.route("/admin/application/approve/<int:id>")
+@app.route("/admin/applications/approve/<int:id>",methods=['GET','POST'])
 def approve_application(id):
-    application = application.query.get(id)
-    application.status = "Approved"
-    db.session.commit()
-    return redirect("/admin/applications")
+    Application = drive.query.get(id)
+    if Application:
+        Application.status = "Approved"
+        db.session.commit()
+    
+    return redirect("/admin/internship")
 
 
-@app.route("/admin/application/reject/<int:id>")
+@app.route("/admin/applications/reject/<int:id>",methods=['GET','POST'])
 def reject_application(id):
-    application = application.query.get(id)
-    application.status = "Rejected"
-    db.session.commit()
-    return redirect("/admin/applications")
+    Application = drive.query.get(id)
+    if Application:
+        Application.status = "Rejected"
+        db.session.commit()
+    return redirect("/admin/internship")
+
+
+@app.route("/student/internship/apply/<int:id>",methods=["POST","GET"])
+def apply(id):
+    user_id=session['user_id']
+    s=application.query.filter_by(studennt_id=user_id,drive_id=id).first()
+
+    if s:
+        flash ("you are already applied")
+    else:
+        app=application(studennt_id=user_id,
+                        drive_id=id,
+                        status="Applied"
+                        
+                        )
+        db.session.add(app)
+        db.session.commit()
+        flash("Applied successfully")
+    
+    return redirect("/student/dashboard")
+
 
 @app.route("/company/da/")
 def all_drive():
@@ -429,7 +464,17 @@ def all_drive():
     return redirect("/company/all_drive",all_drives=all_drives)
 
 
+@app.route("/company/delete_drive/<int:id>")
+def delete_drive(id):
 
+    drives = drive.query.get(id)
+
+    if drives:
+        db.session.delete(drives)
+        db.session.commit()
+        flash("Drive deleted successfully")
+
+    return redirect("/company/dashboard")
 
 
 

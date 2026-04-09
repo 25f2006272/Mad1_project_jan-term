@@ -64,10 +64,48 @@
 
 <div class="sprofile">
     <nav class="snav">
-        <h2>Your Recent Application</h2>
+        <h2>Drives for you</h2>
     
     </nav>
+            
+            {% for s in drives %}
 
-    <div class="txt"><p class="text-center">You haven't to any drives yet</p></div>
+   <div class="drives">
+      <div class="drive2" >
+      <table class="srresult">
+         <tr>
+            <th>ID</th>
+            <th>Company</th>
+            <th>Job Title</th>
+            <th>Location</th>
+            <th>Salary</th>
+            <th>Deadline</th>
+            
+         </tr>
+         
+         
+
+                <tr>
+                  <td>{{ s.id }} </td>
+                  <td>{{ s.company.company_name }}</td>
+                  <td>{{ s.job_title }}</td>
+                  <td>{{ s.location }}</td>
+                  <td>{{ s.salary_package }}</td>
+                  <td>{{ s.application_deadline }}</td>
+                
+                  </td>
+                  
+                  
+               </tr>
+                       
+
+      </table>
+   </div>
+    {% else %}
+            <div class="txt"><p class="text-center">You haven't to any drives yet</p></div> 
+   
+         {% endfor %}
+
 </div>
+
 {% endblock %}

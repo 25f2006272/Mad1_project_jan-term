@@ -5,4 +5,44 @@
 
 
 
+
+
+   <div class="rcontainer">
+      <div class="sresult" >
+      <table class="srresult">
+            <div class="row">
+                <tr>
+                    <th>ID</th>
+                    <th>Company</th>
+                    <th>Job Title</th>
+                    <th>Location</th>
+                    <th>Salary</th>
+                    <th>Deadline</th>
+                    
+                    <th>Apply</th>
+                </tr>
+            </div>
+         
+         
+            {% for s in drives %}
+            <div class="row">
+               <tr>
+                  <td>{{ s.id }} </td>
+                  <td>{{ s.company.company_name }}</td>
+                  <td>{{ s.job_title }}</td>
+                  <td>{{ s.location }}</td>
+                  <td>{{ s.salary_package }}</td>
+                  <td>{{ s.application_deadline }}</td>
+                  <!-- <td>{{s.aapplications.status}} </td> -->
+                  <td><a href="{{url_for('apply',id=s.id)}}"><button type="submit" class="upbtn">Apply</button></a></td>
+                  </td>
+                  
+
+               </tr>
+            </div>
+            {% endfor %}
+         
+      </table>
+   </div>
+
 {% endblock %}

@@ -67,23 +67,31 @@
 
 
 {% if all_drives %}
-    <table border="1">
+<div class="row">
+        <table border="1">
         <tr>
             <th>ID</th>
             <th>Job Title</th>
             <th>Salary</th>
             <th>Deadline</th>
+            <th>Manage</th>
         </tr>
 
         {% for drive in all_drives %}
-        <tr>
-            <td>{{ drive.id }}</td>
-            <td>{{ drive.job_title }}</td>
-            <td>{{ drive.salary_package }}</td>
-            <td>{{ drive.application_deadline }}</td>
-        </tr>
+        <div>       
+             <tr>
+                <td>{{ drive.id }}</td>
+                <td>{{ drive.job_title }}</td>
+                <td>{{ drive.salary_package }}</td>
+                <td>{{ drive.application_deadline }}</td>
+                <td><a href="{{url_for('delete_drive',id=drive.id)}}"><button type="button" class="btn btn-danger">Close</button></a></td>
+                
+            </tr>
+        </div>
+        
         {% endfor %}
     </table>
+</div>
 
 {% else %}
     <p class="text-center">No Placement drives created yet. <a href="{{url_for('create_internship')}}">Create your first drive </a></p>
